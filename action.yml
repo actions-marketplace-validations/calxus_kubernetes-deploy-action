@@ -1,0 +1,35 @@
+name: 'Kubernetes Deploy Action'
+description: 'Action used to deploy service to a Kubernetes cluster'
+inputs:
+  SERVICE_NAME:
+    description: 'The name of the service to deploy'
+    required: true
+  SERVICE_REPLICA_COUNT:
+    description: 'The number of replicas of the service to deploy'
+    required: true
+  SERVICE_IMAGE_NAME:
+    description: 'The name of the image to deploy'
+    required: true
+  SERVICE_IMAGE_NAMESPACE:
+    description: 'The namespace of the image to deploy'
+    required: true
+  SERVICE_IMAGE_VERSION:
+    description: 'The version of the image to deploy'
+    required: true
+  RELEASE_NAME:
+    description: 'The name of the release to deploy to kubernetes with'
+    required: true
+runs:
+  using: 'docker'
+  image: 'prepare/Dockerfile'
+  args:
+    - ${{ inputs.SERVICE_NAME }}
+    - ${{ inputs.SERVICE_REPLICA_COUNT }}
+    - ${{ inputs.SERVICE_IMAGE_NAME }}
+    - ${{ inputs.SERVICE_IMAGE_NAMESPACE }}
+    - ${{ inputs.SERVICE_IMAGE_VERSION }}
+runs:
+  using: 'docker'
+  image: 'deploy/Dockerfile'
+  args:
+    - ${{ inputs.RELEASE_NAME }}
