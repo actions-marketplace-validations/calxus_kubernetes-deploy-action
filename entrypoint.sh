@@ -1,3 +1,6 @@
 #!/bin/sh
 
-helm install $1 service
+mkdir ~/.kube
+echo $1 | base64 -d > ~/.kube/config
+
+helm install $2 service

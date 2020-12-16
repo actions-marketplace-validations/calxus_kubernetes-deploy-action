@@ -1,11 +1,15 @@
-name: 'Kubernetes Deploy Action'
-description: 'Action used to deploy service to a Kubernetes cluster'
+name: "Kubernetes Deploy Action"
+description: "Action used to deploy service to a Kubernetes cluster"
 inputs:
+  KUBE_CONFIG:
+    description: "The config used to connect to the cluster"
+    required: true
   RELEASE_NAME:
-    description: 'The name of the release to deploy to kubernetes with'
+    description: "The name of the release to deploy to kubernetes with"
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
+    - ${{ inputs.KUBE_CONFIG}}
     - ${{ inputs.RELEASE_NAME }}
